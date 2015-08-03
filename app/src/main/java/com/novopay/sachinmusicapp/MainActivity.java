@@ -1,6 +1,7 @@
 package com.novopay.sachinmusicapp;
 
 import android.media.MediaPlayer;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.logging.Handler;
+
 public class MainActivity extends AppCompatActivity {
     private Button mPlaybutton;
     private Button mPausebutton;
@@ -19,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mForwardbutton;
     private MediaPlayer mediaPlayer;
     private SeekBar seekBar;
+    private MusicHandler musicHandler = new MusicHandler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Play is clicked", Toast.LENGTH_SHORT).show();
                 mediaPlayer.start();
+                musicHandler.sendEmptyMessage(MESSAGE_WAKE_UP_AND_SEEK);
             }
         });
 
@@ -56,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Forward is clicked", Toast.LENGTH_SHORT).show();
-                mediaPlayer.seekTo(mediaPlayer.getCurrentPosition() + 1000);
+                mediaPlayer.seekTo(mediaPlayer.getCurrentPosition() + 5000);
             }
         });
 
@@ -64,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Rewind is clicked", Toast.LENGTH_SHORT).show();
-                mediaPlayer.seekTo(mediaPlayer.getCurrentPosition()-1000);
+                mediaPlayer.seekTo(mediaPlayer.getCurrentPosition()-5000);
             }
         });
 
@@ -110,5 +115,22 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public static int MESSAGE_WAKE_UP_AND_SEEK = 10;
+    public static int MESSAGE_WAKE_UP_AND_STOP = 11;
+
+    class MusicHandler extends android.os.Handler {
+        @Override
+        public void handleMessage(Message msg){
+            if (msg.what == MESSAGE_WAKE_UP_AND_SEEK) {
+                if (mediaPlayer != null) {
+                    if (mediaPlayer.isPlaying()) {
+                        seekBar.setProgress(mediaPlayer.getCurrentPosition());
+                        sendEmptyMessageDelayed(MESSAGE_WAKE_UP_AND_SEEK, 200);
+                    }
+                }
+            }
+        }
     }
 }
