@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/image_list"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_alignParentLeft="true" />
+        <!--android:src="@drawable/images"/>-->
+
+    <TextView
+        android:id="@+id/album"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/image_list"
+        android:textSize="25dp"
+        android:textStyle="bold|italic"
+        android:layout_marginLeft="30dp" />
+        <!--adroid:text="album"/>-->
+
+    <TextView
+        android:id="@+id/artist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/image_list"
+        android:layout_below="@+id/album"
+        android:textSize="25dp"
+        android:textStyle="bold|italic"
+        android:layout_marginLeft="30dp" />
+        <!--android:text="artist"/>-->
+
+    <TextView
+        android:id="@+id/song"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/image_list"
+        android:layout_below="@+id/artist"
+        android:textSize="25dp"
+        android:textStyle="bold|italic"
+        android:layout_marginLeft="30dp" />
+        <!--android:text="song"/>-->
+
+</RelativeLayout>
