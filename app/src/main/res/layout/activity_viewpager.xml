@@ -1,12 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/activity_viewpager_viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/activity_viewpager_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bottom_bar"/>
 
-</LinearLayout>
+        <RelativeLayout
+            android:id="@+id/bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="@color/material_blue_grey_800"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/bottom_play_pause_button"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="15dp" />
+            <!--android:layout_alignParentBottom="true"-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/bottom_pause_button"-->
+                <!--android:layout_width="60dp"-->
+                <!--android:layout_height="60dp"-->
+                <!--android:layout_toRightOf="@id/bottom_play_button"-->
+                <!--android:src="@drawable/pause"-->
+                <!--android:layout_marginLeft="15dp" />-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_toRightOf="@+id/bottom_play_button"-->
+
+            <TextView
+                android:id="@+id/display_song"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/bottom_play_pause_button"
+                android:textSize="30sp"
+                android:layout_margin="15dp" />
+
+        </RelativeLayout>
+
+</RelativeLayout>

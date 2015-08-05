@@ -67,7 +67,7 @@ public class MusicService extends Service {
     @DebugLog
     private void playMediaPlayer(int song_id)
     {
-        //Toast.makeText(this, song_id, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Entered into Service", Toast.LENGTH_SHORT).show();
 
         if(mediaPlayer==null || (current_song!=song_id && mediaPlayer!=null)) {
             if(mediaPlayer!=null && current_song!=song_id)
@@ -75,15 +75,15 @@ public class MusicService extends Service {
             mediaPlayer = MediaPlayer.create(this, song_id);
             current_song=song_id;
         }
+        if(!mediaPlayer.isPlaying())
+            mediaPlayer.start();
 
-        mediaPlayer.start();
 
         SeekbarUpdatingEvent seekbarUpdatingEvent = new SeekbarUpdatingEvent();
         seekbarUpdatingEvent.setProgress(mediaPlayer.getCurrentPosition());
         seekbarUpdatingEvent.setDuration(mediaPlayer.getDuration());
 
         eventBus.post(seekbarUpdatingEvent);
-        //musicHandler.sendEmptyMessage(MESSAGE_WAKE_UP_AND_SEEK);
     }
 
     private void pauseMediaPlayer()

@@ -22,6 +22,7 @@ import com.novopay.sachinmusicapp.events.SeekbarForwarEvent;
 import com.novopay.sachinmusicapp.events.SeekbarRewindEvent;
 import com.novopay.sachinmusicapp.events.SeekbarStopEvent;
 import com.novopay.sachinmusicapp.events.SeekbarUpdatingEvent;
+import com.novopay.sachinmusicapp.model.Music;
 import com.novopay.sachinmusicapp.services.MusicService;
 import com.squareup.picasso.Picasso;
 
@@ -76,6 +77,12 @@ public class MainActivity extends AppCompatActivity {
         final AudioManager mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
         seekBar = (SeekBar) findViewById(R.id.seek);
+
+        if(MusicService.mediaPlayer!=null) {
+            seekBar.setMax(MusicService.mediaPlayer.getDuration());
+            seekBar.setProgress(MusicService.mediaPlayer.getCurrentPosition());
+            musicHandler.sendEmptyMessage(MESSAGE_WAKE_UP_AND_SEEK);
+        }
 
         mPlaybutton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.novopay.sachinmusicapp.model.Music;
 import com.novopay.sachinmusicapp.provider.MusicSqliteOpenHelper;
+import com.novopay.sachinmusicapp.services.MusicService;
 
 import java.util.ArrayList;
 import java.util.Currency;
@@ -46,6 +47,7 @@ public class ListFragment extends Fragment {
         musicArrayList.add(new Music("album-2","Jassi Gill","bapu_zimidar","bapu"));
         musicArrayList.add(new Music("album-3","Daljit","patiala","patiala_peg"));
         musicArrayList.add(new Music("album-4","Ranjit Bawa","yaari_chandigarh","yaari"));
+        //final View view_bottom = inflater.inflate(R.layout.activity_viewpager, container,false);
         View view = inflater.inflate(R.layout.list_fragment, container,false);
         listView = (ListView) view.findViewById(R.id.fragment_list_listview);
         listViewAdapter = new ListViewAdapter(getActivity(),musicArrayList);
@@ -54,17 +56,25 @@ public class ListFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //view_bottom.findViewById(R.id.bottom_bar).setVisibility(View.VISIBLE);
                 Music itemClicked = (Music) listView.getItemAtPosition(position);
                 String album = (String) itemClicked.getAlbum();
                 String artist = (String) itemClicked.getArtist();
                 String song = (String) itemClicked.getSong();
                 String image = (String) itemClicked.getImage();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.putExtra("album", album);
-                intent.putExtra("artist", artist);
-                intent.putExtra("song", song);
-                intent.putExtra("image", image);
-                startActivity(intent);
+//                ((ListOfMusicActivity)getActivity()).setBottomLayout(song);
+//                Intent intent = new Intent(getActivity(), MainActivity.class);
+//                intent.putExtra("album", album);
+//                intent.putExtra("artist", artist);
+//                intent.putExtra("song", song);
+//                intent.putExtra("image", image);
+//                startActivity(intent);
+                final int song_id = getActivity().getResources().getIdentifier(song, "raw", getActivity().getPackageName());
+                ((ListOfMusicActivity)getActivity()).setBottomLayout(song,song_id,album,artist,image);
+                Intent intent = new Intent(getActivity(), MusicService.class);
+                intent.putExtra(MusicService.KEY_METHOD,MusicService.METHOD_PLAY);
+                intent.putExtra("id", song_id);
+                getActivity().startService(intent);
             }
         });
         MusicSqliteOpenHelper musicSqliteOpenHelper = new MusicSqliteOpenHelper(getActivity());
