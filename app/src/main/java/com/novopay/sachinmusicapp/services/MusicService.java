@@ -67,7 +67,6 @@ public class MusicService extends Service {
     @DebugLog
     private void playMediaPlayer(int song_id)
     {
-        Toast.makeText(this, "Entered into Service", Toast.LENGTH_SHORT).show();
 
         if(mediaPlayer==null || (current_song!=song_id && mediaPlayer!=null)) {
             if(mediaPlayer!=null && current_song!=song_id)
@@ -101,10 +100,7 @@ public class MusicService extends Service {
         SeekbarStopEvent seekbarStopEvent = new SeekbarStopEvent();
         seekbarStopEvent.setPosition(mediaPlayer.getCurrentPosition());
         eventBus.post(seekbarStopEvent);
-//        if(mediaPlayer==null)
-//            Toast.makeText(this, "media player is null", Toast.LENGTH_SHORT).show();
-//        else
-//            Toast.makeText(this, "media player in not null "+mediaPlayer.toString() , Toast.LENGTH_SHORT).show();
+
     }
 
     private void ffMediaPlayer()

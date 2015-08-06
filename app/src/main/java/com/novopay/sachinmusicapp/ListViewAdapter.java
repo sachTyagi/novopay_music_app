@@ -12,11 +12,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.novopay.sachinmusicapp.model.Collection1;
 import com.novopay.sachinmusicapp.model.Music;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.app.PendingIntent.getActivity;
 
@@ -26,9 +28,9 @@ import static android.app.PendingIntent.getActivity;
 public class ListViewAdapter extends BaseAdapter {
 
     Context context;
-    ArrayList<Music> listOfMusic;
+    List<Collection1> listOfMusic;
 
-    public ListViewAdapter(Context context, ArrayList<Music> listOfMusic) {
+    public ListViewAdapter(Context context, List<Collection1> listOfMusic) {
         this.context = context;
         this.listOfMusic = listOfMusic;
     }
@@ -48,7 +50,7 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Collection1 getItem(int position) {
         return listOfMusic.get(position);
     }
 
@@ -78,14 +80,14 @@ public class ListViewAdapter extends BaseAdapter {
         if(viewHolder==null)
             viewHolder = (ViewHolder) view.getTag();
 
-        Music music = (Music) getItem(position);
+        Collection1 music = getItem(position);
 
-        viewHolder.album.setText(music.getAlbum());
-        viewHolder.artist.setText(music.getArtist());
-        viewHolder.song.setText(music.getSong());
-        String image = music.getImage();
-        int image_id = context.getApplicationContext().getResources().getIdentifier(image,"raw",context.getPackageName());
-        Picasso.with(context).load(image_id).into(viewHolder.image_list);
+        viewHolder.album.setText(music.getArtistName().getText());
+        viewHolder.artist.setText(music.getArtistName().getText());
+        viewHolder.song.setText(music.getSongName().getText());
+//        String image = music.getImage();
+//        int image_id = context.getApplicationContext().getResources().getIdentifier(image,"raw",context.getPackageName());
+         Picasso.with(context).load(music.getArtistImage().getSrc()).into(viewHolder.image_list);
 
         return view;
     }

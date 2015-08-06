@@ -65,12 +65,9 @@ public class ListOfMusicActivity extends FragmentActivity{
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(ListOfMusicActivity.this, imageView.getTag().toString(), Toast.LENGTH_SHORT).show();
-                System.out.println("IMAGE VIEW "+(Integer)imageView.getTag());
-                System.out.println("IRESOURCE "+R.drawable.pause);
+
 
                 if((Integer)imageView.getTag() == R.drawable.pause) {
-                    Toast.makeText(ListOfMusicActivity.this, "Getting inside if", Toast.LENGTH_SHORT).show();
                     imageView.setImageResource(R.drawable.play);
                     imageView.setTag(R.drawable.play);
                     Intent intent = new Intent(ListOfMusicActivity.this, MusicService.class);
@@ -80,7 +77,6 @@ public class ListOfMusicActivity extends FragmentActivity{
                 }
                 else
                 {
-                    Toast.makeText(ListOfMusicActivity.this, "Getting inside else", Toast.LENGTH_SHORT).show();
                     imageView.setImageResource(R.drawable.pause);
                     imageView.setTag(R.drawable.pause);
                     Intent intent = new Intent(ListOfMusicActivity.this, MusicService.class);
